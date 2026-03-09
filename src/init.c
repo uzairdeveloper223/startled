@@ -39,11 +39,15 @@ int setup_mounts(){
 int setup_PATH_env(){
     clearenv();
     printf("setting PATH and basic ENV variables\n");
-    if(putenv("export PATH=/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin") != 0){
+    if(putenv("PATH=/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin") != 0){
 	fprintf(stderr, "couldnt set PATH: %s\n", strerror(errno));
 	return 1;
     }
-    else if(putenv("export HOME=/root && export TERM=linux") != 0){
+    else if(putenv("HOME=/root") != 0){
+	fprintf(stderr, "couldnt set ENV: %s\n", strerror(errno));
+	return 1;
+    }
+    else if(putenv("TERM=linux") != 0){
 	fprintf(stderr, "couldnt set ENV: %s\n", strerror(errno));
 	return 1;
     }

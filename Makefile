@@ -1,7 +1,7 @@
 prog=startled
 out=out
 src=src
-FLAGS=-Wall
+FLAGS=-Wall -static -Os
 cc=clang
 
 .PHONY: all clean

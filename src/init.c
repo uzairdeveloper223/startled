@@ -5,7 +5,8 @@ int setup_mounts(){
     for (int i = 0; i < 5; i++) {
         mkdir(dirs[i], 0755); 
     }
-    printf("mounting mounts");
+
+    printf("mounting mounts\n");
     if (mount("proc", "/proc", "proc", 0, NULL) != 0) {
         fprintf(stderr, "Error mounting /proc: %s\n", strerror(errno));
         return 1;
@@ -36,12 +37,13 @@ int setup_mounts(){
 }
 
 int setup_PATH_env(){
+    clearenv();
     printf("setting PATH and basic ENV variables\n");
-    if(system("export PATH=/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin") != 0){
+    if(putenv("export PATH=/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin") != 0){
 	fprintf(stderr, "couldnt set PATH: %s\n", strerror(errno));
 	return 1;
     }
-    else if(system("export HOME=/root && export TERM=linux") != 0){
+    else if(putenv("export HOME=/root && export TERM=linux") != 0){
 	fprintf(stderr, "couldnt set ENV: %s\n", strerror(errno));
 	return 1;
     }

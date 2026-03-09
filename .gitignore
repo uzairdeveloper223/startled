@@ -1,2 +1,7 @@
-out/*
+out
+out/startled
+startled
+*.o
+*.out
+
 
